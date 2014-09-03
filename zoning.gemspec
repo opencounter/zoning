@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
 
   runtime_dependencies = {
     "faraday" => "~> 0.9.0",
-    "oj" => "~> 2.10.0"
+    "oj" => "~> 2.3.0"
   }
 
   runtime_dependencies.each {|lib, version| spec.add_runtime_dependency(lib, version) }
