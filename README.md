@@ -4,7 +4,7 @@ Ruby wrapper for the Zoning.io API.
 
 ## Configuration
 
-In order to interact with the Zoning, please specify the auth token in an initializer:
+In order to interact with the Zoning gem, please set your API token in an initializer:
 
 **These fields are required.**
 
