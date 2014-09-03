@@ -2,17 +2,15 @@ module Zoning
 	module Uses
 
 		def self.find(subdomain, locale, id)
-			connection = Zoning::Connection.connect(subdomain, locale, "uses/#{id}.json")
-			response = connection.get
 			key = 'use'
-			Zoning::Connection.parse(response, key)
+			connection = Zoning::Connection.connect(subdomain, locale, "uses/#{id}.json").get
+			Zoning::Connection.parse(connection, key)
 		end
 
 		def self.list(subdomain, locale)
-			connection = Zoning::Connection.connect(subdomain, locale, "uses.json")
-			response = connection.get
 			key = 'uses'
-			Zoning::Connection.parse(response, key)
+			connection = Zoning::Connection.connect(subdomain, locale, "uses.json").get
+			Zoning::Connection.parse(connection, key)
 		end
 
 		# Uses.search takes the following, optional params:
@@ -25,11 +23,10 @@ module Zoning
 		# :keywords, String
 
 		def self.search(subdomain, locale, query={})
-			query_string = {q: query}.to_query
-			connection = Zoning::Connection.connect(subdomain, locale, "uses/search.json", query_string)
-			response = connection.get
 			key = 'uses'
-			Zoning::Connection.parse(response, key)			
+			query_string = {q: query}.to_query
+			connection = Zoning::Connection.connect(subdomain, locale, "uses/search.json", query_string).get
+			Zoning::Connection.parse(connection, key)			
 		end
 	
 	end
