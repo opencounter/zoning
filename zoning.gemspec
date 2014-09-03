@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   runtime_dependencies = {
-    "faraday" => "~> 0.9.0",
+    "faraday" => "~> 0.8.7",
     "oj" => "~> 2.3.0"
   }
 
