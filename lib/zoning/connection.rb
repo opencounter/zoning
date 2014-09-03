@@ -2,18 +2,10 @@ module Zoning
 	class Connection
 
 		def self.connect(subdomain, locale, path, query_string=nil)
-			if locale.blank?
-				locale = "en"
-			else
-				locale = locale.to_s
-			end
+			locale ||= :en
 			protocol = "https://"
-			base_url = "zoning.io/#{locale}/api/1.0/"
-			if query_string.present?
-				conn = Faraday.new(:url => "#{protocol}#{subdomain}.#{base_url}#{path}?#{query_string}")
-			else
-				conn = Faraday.new(:url => "#{protocol}#{subdomain}.#{base_url}#{path}")
-			end
+			base_url = "zoning.io/#{locale.to_s}/api/1.0/"
+			conn = Faraday.new(:url => "#{protocol}#{subdomain}.#{base_url}#{path}?#{query_string}")
 			conn.token_auth(ENV['ZONING_API_TOKEN'])
 			conn
 		end
