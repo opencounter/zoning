@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 1.9.2'
   spec.required_rubygems_version = '>= 1.3.5'
   spec.summary = "Ruby wrapper for the Zoning.io API"
-  spec.version = Zoning::VERSION.dup
+  spec.version = ZoningAPI::VERSION.dup
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
