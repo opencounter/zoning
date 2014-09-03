@@ -6,7 +6,7 @@ module Zoning
 			protocol = "https://"
 			base_url = "zoning.io/#{locale.to_s}/api/1.0/"
 			conn = Faraday.new(:url => "#{protocol}#{subdomain}.#{base_url}#{path}?#{query_string}")
-			conn.token_auth(ENV['ZONING_API_TOKEN'])
+			conn.token_auth(Zoning.configuration.api_token)
 			conn
 		end
 
