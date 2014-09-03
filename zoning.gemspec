@@ -25,14 +25,14 @@ Gem::Specification.new do |spec|
 
   runtime_dependencies = {
     "faraday" => "~> 0.8.7",
-    "oj"      => "~> 2.3.0"
+    "oj" => "~> 2.3.0"
   }
 
   runtime_dependencies.each {|lib, version| spec.add_runtime_dependency(lib, version) }
 
   development_dependencies = {
-    'bundler' => '~> 1.5', '~> 1.0',
-    "rake"    => "~> 10.1.1"
+    'bundler' => "~> 1.0",
+    "rake" => "~> 0.8.7"
   }
 
   development_dependencies.each {|lib, version| spec.add_development_dependency(lib, version) }
