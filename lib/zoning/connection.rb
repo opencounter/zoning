@@ -5,7 +5,11 @@ module Zoning
 			locale ||= :en
 			protocol = "https://"
 			base_url = "zoning.io/#{locale.to_s}/api/1.0/"
-			conn = Faraday.new(:url => "#{protocol}#{subdomain}.#{base_url}#{path}?#{query_string}")
+			if subdomain.present?
+				conn = Faraday.new(:url => "#{protocol}#{subdomain}.#{base_url}#{path}?#{query_string}")
+			else
+				conn = Faraday.new(:url => "#{protocol}#{base_url}#{path}?#{query_string}")
+			end
 			conn.token_auth(Zoning.configuration.api_token)
 			conn
 		end
