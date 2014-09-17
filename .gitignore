@@ -34,3 +34,5 @@ Gemfile.lock
 .rvmrc
 
 .DS_Store
+
+.env

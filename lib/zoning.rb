@@ -12,6 +12,7 @@ require "zoning/endpoints/zones"
 
 require 'oj'
 require 'faraday'
+require 'faraday_middleware'
 
 module Zoning
   class << self
