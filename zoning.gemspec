@@ -19,11 +19,14 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   runtime_dependencies = {
-    "faraday" => "~> 0.8.7",
-    "oj" => "~> 2.3.0"
+
+    "faraday"            => ["~> 0.8", ">= 0.8.7"],
+    "oj"                 => ["~> 2.3", ">= 2.3.0"],
+    "oauth2"             => ["~> 1.0", ">= 1.0.0"],
+    "faraday_middleware" => ["~> 0.9", ">= 0.9.1"]
   }
 
-  runtime_dependencies.each {|lib, version| spec.add_runtime_dependency(lib, version) }
+  runtime_dependencies.each {|lib, version| spec.add_runtime_dependency(lib, version[0], version[1]) }
 
   development_dependencies = {
     "bundler" => "~> 1.5",
