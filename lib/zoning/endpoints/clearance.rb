@@ -1,5 +1,5 @@
 module Zoning
-	module Clearances
+	module Clearance
 
 		def self.search(subdomain, locale, query={})
 			key = 'clearance'
