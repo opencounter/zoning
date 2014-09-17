@@ -16,7 +16,7 @@ module Zoning
 
 		def self.parse(response, key=nil)
 			if response.try(:body).present?
-				if response.body == "HTTP Token: Access denied.\n"
+        if response.status == 401
 					"HTTP Token: Access denied."
 				else
 					begin
