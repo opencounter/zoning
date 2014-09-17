@@ -40,6 +40,8 @@ module Zoning
       end
     end
 
+    private
+
     def self.acc_token
       @acc_token ||= OAuth2::Client.new(
         ENV['ZONING_API_CLIENT_ID'],
