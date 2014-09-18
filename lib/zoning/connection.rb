@@ -4,9 +4,10 @@ module Zoning
   class Connection
 
     def self.connect(subdomain, locale, path, query_string=nil)
-      locale ||= :en
-      protocol = "https://"
-      base_url = "zoning.io/#{locale.to_s}/api/1.0/"
+      locale ||= Zoning.configuration.default_locale
+      protocol = Zoning.configuration.protocol
+      site_url = Zoning.configuration.site_url
+      base_url = "#{site_url}/#{locale.to_s}/api/1.0/"
       if subdomain
         absolute_url = "#{protocol}#{subdomain}.#{base_url}#{path}?#{query_string}"
       else
@@ -44,13 +45,13 @@ module Zoning
 
     def self.acc_token
       @acc_token ||= OAuth2::Client.new(
-        ENV['ZONING_API_CLIENT_ID'],
-        ENV['ZONING_API_CLIENT_SECRET'],
-        site: "https://zoning.io/",
-        token_url: "/admin/oauth/token"
+        Zoning.configuration.client_id,
+        Zoning.configuration.client_secret,
+        site: "#{Zoning.configuration.protocol}#{Zoning.configuration.site_url}",
+        token_url: Zoning.configuration.token_path
       ).password.get_token(
-        ENV['ZONING_API_CLIENT_USERNAME'],
-        ENV['ZONING_API_CLIENT_PASSWORD']
+        Zoning.configuration.username,
+        Zoning.configuration.password
       ).token
     end
   end
