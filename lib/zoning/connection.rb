@@ -46,7 +46,7 @@ module Zoning
       @acc_token ||= OAuth2::Client.new(
         ENV['ZONING_API_CLIENT_ID'],
         ENV['ZONING_API_CLIENT_SECRET'],
-        site: "http://zoning-api.dev/",
+        site: "https://zoning.io/",
         token_url: "/admin/oauth/token"
       ).password.get_token(
         ENV['ZONING_API_CLIENT_USERNAME'],
