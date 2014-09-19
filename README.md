@@ -10,5 +10,8 @@ In order to interact with the Zoning gem, please set your API token in an initia
 
     # config/initializers/zoning_api.rb
     Zoning.configure do |config|
-    	config.api_token = ENV['ZONING_API_TOKEN']
+      config.client_id = ENV['ZONING_API_CLIENT_ID']
+      config.client_secret = ENV['ZONING_API_CLIENT_SECRET']
+      config.username = ENV['ZONING_API_USERNAME']
+      config.password = ENV['ZONING_API_PASSWORD']
     end
