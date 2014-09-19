@@ -4,7 +4,7 @@ module Zoning
 		def self.connect(subdomain, locale, path, query_string=nil)
 			locale ||= :en
 			protocol = "https://"
-			base_url = "zoning.io/#{locale.to_s}/api/1.0/"
+			base_url = "zoning.us/#{locale.to_s}/api/1.0/"
 			if subdomain.present?
 				conn = Faraday.new(:url => "#{protocol}#{subdomain}.#{base_url}#{path}?#{query_string}")
 			else
