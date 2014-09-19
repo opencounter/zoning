@@ -1,6 +1,3 @@
-require "codeclimate-test-reporter"
-CodeClimate::TestReporter.start
-
 require_relative '../lib/zoning'
 
 RSpec.configure do |config|

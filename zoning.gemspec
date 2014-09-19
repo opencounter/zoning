@@ -34,8 +34,7 @@ Gem::Specification.new do |spec|
     "rspec"                     => '~> 3.1.0',
     "guard"                     => "~> 2.6",
     "guard-rspec"               => "~> 4.2.8",
-    "flexmock"                  => "~> 1.3.1",
-    "codeclimate-test-reporter" => "~> 0.4.0"
+    "flexmock"                  => "~> 1.3.1"
   }
 
   development_dependencies.each {|gem, version| spec.add_development_dependency(gem, version) }
