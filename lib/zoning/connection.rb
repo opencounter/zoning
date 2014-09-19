@@ -58,7 +58,7 @@ module Zoning
         if e.respond_to?(:code) && e.respond_to?(:response)
           raise ConnectionFailedError.new(code: e.code, response: e.response)
         else
-          raise ConnectionFailedError.new(code: 500, response: "Error: 500 Internal Server Error")
+          raise e
         end
       end
     end
