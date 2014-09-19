@@ -4,9 +4,9 @@ module Zoning
   class Connection
 
     def self.connect(subdomain, locale, path, query_string=nil)
-      locale ||= Zoning.configuration.default_locale
-      protocol = Zoning.configuration.protocol
-      site_url = Zoning.configuration.site_url
+      locale ||= :en
+      protocol = 'http://'
+      site_url = 'zoning.us'
       base_url = "#{site_url}/#{locale.to_s}/api/1.0/"
       if subdomain
         absolute_url = "#{protocol}#{subdomain}.#{base_url}#{path}?#{query_string}"
