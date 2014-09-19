@@ -4,10 +4,5 @@ module Zoning
     attr_accessor :client_secret
     attr_accessor :username
     attr_accessor :password
-    attr_accessor :token_path
-    
-    def initialize
-      @token_path = "/admin/oauth/token"
-    end
   end
 end

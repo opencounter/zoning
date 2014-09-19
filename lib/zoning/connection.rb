@@ -49,7 +49,7 @@ module Zoning
           Zoning.configuration.client_id,
           Zoning.configuration.client_secret,
           site: "#{Zoning.configuration.protocol}#{Zoning.configuration.site_url}",
-          token_url: Zoning.configuration.token_path
+          token_url: "/admin/oauth/token"
         ).password.get_token(
           Zoning.configuration.username,
           Zoning.configuration.password
