@@ -19,16 +19,23 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   runtime_dependencies = {
-    "faraday" => "~> 0.8.7",
-    "oj" => "~> 2.3.0"
+
+    "faraday"            => ["~> 0.8", ">= 0.8.7"],
+    "oj"                 => ["~> 2.3", ">= 2.3.0"],
+    "oauth2"             => ["~> 1.0", ">= 1.0.0"],
+    "faraday_middleware" => ["~> 0.9", ">= 0.9.1"]
   }
 
-  runtime_dependencies.each {|lib, version| spec.add_runtime_dependency(lib, version) }
+  runtime_dependencies.each {|gem, version| spec.add_runtime_dependency(gem, version[0], version[1]) }
 
   development_dependencies = {
-    "bundler" => "~> 1.5",
-    "rake" => "~> 10.1.1"
+    "bundler"                   => "~> 1.5",
+    "rake"                      => "~> 10.1.1",
+    "rspec"                     => '~> 3.1.0',
+    "guard"                     => "~> 2.6",
+    "guard-rspec"               => "~> 4.2.8",
+    "flexmock"                  => "~> 1.3.1"
   }
 
-  development_dependencies.each {|lib, version| spec.add_development_dependency(lib, version) }
+  development_dependencies.each {|gem, version| spec.add_development_dependency(gem, version) }
 end
