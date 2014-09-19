@@ -44,15 +44,23 @@ module Zoning
     private
 
     def self.acc_token
-      @acc_token ||= OAuth2::Client.new(
-        Zoning.configuration.client_id,
-        Zoning.configuration.client_secret,
-        site: "#{Zoning.configuration.protocol}#{Zoning.configuration.site_url}",
-        token_url: Zoning.configuration.token_path
-      ).password.get_token(
-        Zoning.configuration.username,
-        Zoning.configuration.password
-      ).token
+      begin
+        @acc_token ||= OAuth2::Client.new(
+          Zoning.configuration.client_id,
+          Zoning.configuration.client_secret,
+          site: "#{Zoning.configuration.protocol}#{Zoning.configuration.site_url}",
+          token_url: Zoning.configuration.token_path
+        ).password.get_token(
+          Zoning.configuration.username,
+          Zoning.configuration.password
+        ).token
+      rescue Exception => e
+        if e.respond_to?(:code) && e.respond_to?(:response)
+          raise ConnectionFailedError.new(code: e.code, response: e.response)
+        else
+          raise ConnectionFailedError.new(code: 500, response: "Error: 500 Internal Server Error")
+        end
+      end
     end
   end
 end

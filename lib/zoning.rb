@@ -1,6 +1,7 @@
 require "zoning/configuration"
 require "zoning/connection"
 require "zoning/version"
+require "zoning/connection_failed_error"
 require "zoning/endpoints/attributes"
 require "zoning/endpoints/clearances"
 require "zoning/endpoints/geo"
