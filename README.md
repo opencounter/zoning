@@ -4,7 +4,10 @@ Ruby wrapper for the Zoning.io API.
 
 ## Configuration
 
-In order to interact with the Zoning gem, please set your API token in an initializer:
+Access to the Zoning.io API is controlled by OAuth2.
+
+In order to interact with the Zoning gem, please set your API credentials (App
+ID and App Secret) in an initializer:
 
 **These fields are required.**
 
@@ -12,6 +15,15 @@ In order to interact with the Zoning gem, please set your API token in an initia
     Zoning.configure do |config|
       config.client_id = ENV['ZONING_API_CLIENT_ID']
       config.client_secret = ENV['ZONING_API_CLIENT_SECRET']
-      config.username = ENV['ZONING_API_USERNAME']
-      config.password = ENV['ZONING_API_PASSWORD']
     end
+
+This will authenticate to the Zoning.io API using the [client credentials
+flow](http://tools.ietf.org/html/rfc6749#section-4.4):
+
+    +----------+                                  +---------------+
+    |          |                                  |               |
+    |          |>--(A)- Client Authentication --->|   Zoning.io   |
+    | Your App |                                  |      API      |
+    |          |<--(B)---- Access Token ---------<|               |
+    |          |                                  |               |
+    +----------+                                  +---------------+
