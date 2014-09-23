@@ -4,6 +4,9 @@ module Zoning
   class Connection
 
     def self.connect(subdomain = nil, locale = nil, path = nil, query_string=nil)
+      raise ConfigurationError.new(:client_id) unless Zoning.configuration.client_id
+      raise ConfigurationError.new(:client_secret) unless Zoning.configuration.client_secret
+
       locale ||= :en
       protocol = 'https://'
       site_url = 'zoning.io'
