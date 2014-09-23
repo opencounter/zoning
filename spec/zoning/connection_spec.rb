@@ -2,13 +2,16 @@ require 'spec_helper'
 
 module Zoning
   describe Connection do
+    before(:each) do
+      configure_zoning
+    end
+
     describe "configuration" do
       before(:each) do
         stub_token_fetch_success
       end
 
       it "#connect raises no exception when correctly configured" do
-        configure_zoning
         expect { Connection.connect }.to_not raise_exception
       end
 
@@ -30,21 +33,15 @@ module Zoning
     end
 
     describe "#connect" do
-      before(:each) do
-        configure_zoning
-      end
-
       context "happy path" do
         it "gives a Faraday object" do
-          configure_zoning
-          flexmock(Connection).should_receive(:acc_token).and_return('valid').once
+          stub_token_fetch_success
           connection = Connection.connect(:subdomain, :en, '/')
 
           expect(connection.class).to eq(Faraday::Connection)
         end
 
         it "Faraday includes token in header" do
-          configure_zoning
           flexmock(Connection).should_receive(:acc_token).and_return('valid').once
           connection = Connection.connect(:subdomain, :en, '/')
 
@@ -56,7 +53,6 @@ module Zoning
       context "sad path" do
         describe "fetching the access token takes longer than 3 seconds" do
           it "raises a connection failed timeout error" do
-            configure_zoning
             flexmock(OAuth2::Client).should_receive(:new).and_raise(
               flexmock(StandardError.new, code: 408, response: 'Timeout')
             )
@@ -69,7 +65,6 @@ module Zoning
 
         describe "access token is not returned because OAuth server 500 errors" do
           it "raises an connection failed internal error" do
-            configure_zoning
             flexmock(OAuth2::Client).should_receive(:new).and_raise(
               flexmock(StandardError.new('message'))
             )

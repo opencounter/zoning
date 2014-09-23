@@ -10,4 +10,7 @@ RSpec.configure do |config|
   config.tty = true
   config.mock_with :flexmock
   config.include SetupHelpers
+  config.before(:each) do
+    WebMock.reset!
+  end
 end
