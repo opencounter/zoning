@@ -6,6 +6,10 @@ module SetupHelpers
     end
   end
 
+  def self.unconfigure_zoning
+    Zoning.configuration = Zoning::Configuration.new
+  end
+
   def stub_token_fetch_success
     stub_request(:post, /\/admin\/oauth\/token/).
       with(:body => {"grant_type"=>"client_credentials"}).

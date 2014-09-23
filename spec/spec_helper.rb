@@ -12,5 +12,6 @@ RSpec.configure do |config|
   config.include SetupHelpers
   config.before(:each) do
     WebMock.reset!
+    SetupHelpers.unconfigure_zoning
   end
 end

@@ -47,20 +47,21 @@ module Zoning
     private
 
     def self.acc_token
-      begin
-        @acc_token ||= OAuth2::Client.new(
-          Zoning.configuration.client_id,
-          Zoning.configuration.client_secret,
-          site: "http://zoning.io/",
-          token_url: "/admin/oauth/token"
-        ).client_credentials.get_token.token
-      rescue Exception => e
-        if e.respond_to?(:code) && e.respond_to?(:response)
-          raise ConnectionFailedError.new(code: e.code, response: e.response)
-        else
-          raise ConnectionFailedError.new(code: 500, response: "Internal Server Error.")
+      Zoning.configuration.access_token ||=
+        begin
+          OAuth2::Client.new(
+            Zoning.configuration.client_id,
+            Zoning.configuration.client_secret,
+            site: "http://zoning.io/",
+            token_url: "/admin/oauth/token"
+          ).client_credentials.get_token.token
+        rescue Exception => e
+          if e.respond_to?(:code) && e.respond_to?(:response)
+            raise ConnectionFailedError.new(code: e.code, response: e.response)
+          else
+            raise ConnectionFailedError.new(code: 500, response: "Internal Server Error.")
+          end
         end
-      end
     end
   end
 end
