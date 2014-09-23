@@ -21,7 +21,7 @@ module Zoning
 
 		def self.search(query={})
 			key = 'tenants'
-			query_string = {q: query}.to_query
+			query_string = Faraday::Utils::ParamsHash.new.merge({q: query}).to_query
 			connection = Zoning::Connection.connect(nil, :en, "tenants/search.json", query_string).get
 			Zoning::Connection.parse(connection, key)
 		end

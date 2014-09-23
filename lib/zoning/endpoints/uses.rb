@@ -24,7 +24,7 @@ module Zoning
 
 		def self.search(subdomain, locale, query={})
 			key = 'uses'
-			query_string = {q: query}.to_query
+			query_string = Faraday::Utils::ParamsHash.new.merge({q: query}).to_query
 			connection = Zoning::Connection.connect(subdomain, locale, "uses/search.json", query_string).get
 			Zoning::Connection.parse(connection, key)			
 		end
