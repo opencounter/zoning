@@ -3,7 +3,7 @@ require 'oauth2'
 module Zoning
   class Connection
 
-    def self.connect(subdomain, locale, path, query_string=nil)
+    def self.connect(subdomain = nil, locale = nil, path = nil, query_string=nil)
       locale ||= :en
       protocol = 'https://'
       site_url = 'zoning.io'

@@ -1,7 +1,24 @@
 require 'spec_helper'
 
 describe Zoning::Connection do
+  describe "configuration" do
+    before(:each) do
+      stub_token_fetch_success
+    end
+
+    context "correctly configured" do
+      it "#connect raises no exception" do
+        configure_zoning
+        expect { Zoning::Connection.connect }.to_not raise_exception
+      end
+    end
+  end
+
   describe "#connect" do
+    before(:each) do
+      configure_zoning
+    end
+
     context "happy path" do
       it "gives a Faraday object" do
         configure_zoning
