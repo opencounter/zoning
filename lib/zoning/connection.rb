@@ -24,14 +24,14 @@ module Zoning
     end
 
     def self.parse(response, key=nil)
-      if response.try(:body).present?
+      if response.body
         if response.status == 401
           "HTTP Token: Access denied."
         else
           begin
             parsed_response = Oj.load(response.body, bigdecimal_load: :float)
-            if key.present?
-              parsed_response[key]
+            if key
+              parsed_response.fetch(key)
             else
               parsed_response
             end
