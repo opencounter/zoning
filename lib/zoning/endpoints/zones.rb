@@ -1,5 +1,7 @@
 module Zoning
 	module Zones
+    ALLOWED_SEARCH_PARAMS = %i(id overlay category_id name code description latitude longitude radius keywords)
+    prepend Zoning::SearchParamsValidator
 
 		def self.find(subdomain, locale, id)
 			key = 'zone'
