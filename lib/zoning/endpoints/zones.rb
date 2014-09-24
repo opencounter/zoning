@@ -1,7 +1,6 @@
 module Zoning
 	module Zones
-    ALLOWED_SEARCH_PARAMS = %i(id overlay category_id name code description latitude longitude radius keywords)
-    prepend Zoning::SearchParamsValidator
+    prepend SearchParamsValidator
 
 		def self.find(subdomain, locale, id)
 			key = 'zone'
@@ -15,18 +14,7 @@ module Zoning
 			Zoning::Connection.parse(connection, key)
 		end
 
-		# Zones.search takes the following, optional params:
-		# :id, Integer
-		# :overlay, Boolean
-		# :category_id, Integer
-		# :name, String
-		# :code, String
-		# :description, String
-		# :latitude, Float
-		# :longitude, Float
-		# :radius, Integer
-		# :keywords, String
-
+    ALLOWED_SEARCH_PARAMS = %i(id overlay category_id name code description latitude longitude radius keywords)
 		def self.search(subdomain, locale, query={})
 			key = 'zones'
 			query_string = Faraday::Utils::ParamsHash.new.merge({q: query}).to_query
