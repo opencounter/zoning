@@ -10,34 +10,6 @@ module Zoning
       stub_token_fetch_success
     end
 
-    describe "#search" do
-      it "accepts valid search params" do
-        stub_request(:get, /zones\/search\.json/)
-        query = {
-          id: 0,
-          overlay: true,
-          category_id: 0,
-          name: '',
-          code: '',
-          description: '',
-          latitude: 0.0,
-          longitude: 0.0,
-          radius: 0.0,
-          keywords: ''
-        }
-        expect { Zones.search(subdomain, locale, query) }.to_not raise_error
-        query.delete(:radius)
-        expect { Zones.search(subdomain, locale, query) }.to_not raise_error
-      end
-
-      it "raises an error in presence of an undefined param" do
-        stub_request(:get, /zones\/search\.json/)
-        query = { name: 'valid', notaparam: 'invalid' }
-        expect { Zones.search(subdomain, locale, query) }.
-          to raise_error(InvalidParameterError, /notaparam/)
-      end
-    end
-
     describe "#list" do
       it "invalid response gives \"Invalid json response\"" do
         stub_request(:get, /zones\.json/).

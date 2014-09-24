@@ -1,6 +1,8 @@
 module Zoning
 	module ZoneClearances
+    prepend SearchParamsValidator
 
+    ALLOWED_SEARCH_PARAMS = %i(use parameters)
 		def self.search(subdomain, locale, query={})
 			key = 'zone_clearances'
 			query_string = Faraday::Utils::ParamsHash.new.merge({q: query}).to_query
