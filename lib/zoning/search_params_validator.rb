@@ -1,10 +1,24 @@
 module Zoning
   module SearchParamsValidator
     module BaseValidator
-      def search(subdomain, locale, query={})
+      def search(arg1=nil, arg2=nil, arg3=nil)
+        if arg2 == nil && arg3 == nil
+          subdomain = nil
+          locale = nil
+          query = arg1
+        else
+          subdomain = arg1
+          locale = arg2
+          query = arg3
+        end
+
         extra_params = query.keys - self::ALLOWED_SEARCH_PARAMS
         if extra_params.empty?
-          super(subdomain, locale, query)
+          if subdomain && locale
+            super(subdomain, locale, query)
+          else
+            super(query)
+          end
         else
           raise Zoning::InvalidParameterError.new(extra_params)
         end
