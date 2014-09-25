@@ -19,13 +19,11 @@ module Zoning
           query = {
             id: 0,
             overlay: true,
-            category_id: 0,
             name: '',
             code: '',
             description: '',
             latitude: 0.0,
             longitude: 0.0,
-            radius: 0.0,
             keywords: ''
           }
           expect { Zones.search(subdomain, locale, query) }.to_not raise_error
@@ -70,10 +68,8 @@ module Zoning
         it "accepts valid search params" do
           query = {
             id: 0,
-            category_id: 0,
             name: '',
             full_name: '',
-            code: '',
             description: '',
             keywords: ''
           }
@@ -192,13 +188,11 @@ module Zoning
           query = {
             id: 0,
             overlay: true,
-            category_id: 0,
             name: '',
             code: '',
             description: '',
             latitude: 0.0,
             longitude: 0.0,
-            radius: 0.0,
             keywords: ''
           }
           expect { Zones.search(subdomain, locale, query) }.to_not raise_error
