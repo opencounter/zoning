@@ -14,7 +14,7 @@ module Zoning
 			Zoning::Connection.parse(connection, key)
 		end
 
-    ALLOWED_SEARCH_PARAMS = %i(id name subdomain keywords)
+    ALLOWED_SEARCH_PARAMS = %i(id name slug subdomain keywords featured)
     def self.search(query={})
 			key = 'tenants'
 			query_string = Faraday::Utils::ParamsHash.new.merge({q: query}).to_query
