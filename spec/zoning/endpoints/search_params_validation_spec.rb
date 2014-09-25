@@ -158,7 +158,6 @@ module Zoning
         end
       end
 
-
       describe "clearance" do
         before(:each) do
           stub_request(:get, /clearance\.json/)
@@ -183,7 +182,6 @@ module Zoning
             to raise_error(InvalidParameterError, /notaparam/)
         end
       end
-
 
       describe "zones#search" do
         before(:each) do
@@ -214,7 +212,5 @@ module Zoning
             to raise_error(InvalidParameterError, /notaparam/)
         end
       end
-
-
   end
 end
