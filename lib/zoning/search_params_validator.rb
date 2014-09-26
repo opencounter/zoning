@@ -1,7 +1,7 @@
 module Zoning
   module SearchParamsValidator
     module BaseValidator
-      def search(arg1=nil, arg2=nil, arg3=nil)
+      def search(arg1, arg2=nil, arg3=nil)
         if arg2 == nil && arg3 == nil
           subdomain = nil
           locale = nil
