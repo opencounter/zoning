@@ -6,7 +6,7 @@ module Zoning
     def self.connect(subdomain, locale, path, query_string=nil)
       locale ||= :en
       protocol = 'http://'
-      site_url = 'zoning.us'
+      site_url = 'zoning.io'
       base_url = "#{site_url}/#{locale.to_s}/api/1.0/"
       if subdomain
         absolute_url = "#{protocol}#{subdomain}.#{base_url}#{path}?#{query_string}"
