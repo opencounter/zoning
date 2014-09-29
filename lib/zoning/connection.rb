@@ -50,15 +50,12 @@ module Zoning
           Zoning.configuration.client_secret,
           site: "http://zoning.us/",
           token_url: "/admin/oauth/token"
-        ).password.get_token(
-          Zoning.configuration.username,
-          Zoning.configuration.password
-        ).token
+        ).client_credentials.get_token.token
       rescue Exception => e
         if e.respond_to?(:code) && e.respond_to?(:response)
           raise ConnectionFailedError.new(code: e.code, response: e.response)
         else
-          raise e
+          raise ConnectionFailedError.new(code: 500, response: "Internal Server Error.")
         end
       end
     end
