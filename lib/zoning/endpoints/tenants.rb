@@ -32,7 +32,7 @@ module Zoning
 					"Invalid json response"
 				end
 			else
-				"No response body"
+				nil
 			end
 		end
 

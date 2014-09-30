@@ -40,7 +40,7 @@ module Zoning
           end
         end
       else
-        "No response body"
+        nil
       end
     end
 
