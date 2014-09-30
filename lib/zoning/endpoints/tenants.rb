@@ -29,10 +29,12 @@ module Zoning
 				begin
 					Oj.load(connection.body, bigdecimal_load: :float).to_json
 				rescue
-					"Invalid json response"
+					puts "Zoning API Error: invalid json response"
+					return nil
 				end
 			else
-				nil
+				puts "Zoning API Error: no response body"
+				return nil
 			end
 		end
 

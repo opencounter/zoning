@@ -26,7 +26,8 @@ module Zoning
     def self.parse(response, key=nil)
       if response.body
         if response.status == 401
-          "HTTP Token: Access denied."
+          puts "Zoning API Error: 401 access denied."
+          return nil
         else
           begin
             parsed_response = Oj.load(response.body, bigdecimal_load: :float)
@@ -36,11 +37,13 @@ module Zoning
               parsed_response
             end
           rescue
-            "Invalid json response"
+            puts "Zoning API Error: invalid json response"
+            return nil
           end
         end
       else
-        nil
+        puts "Zoning API Error: no response body"
+        return nil
       end
     end
 
