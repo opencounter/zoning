@@ -6,7 +6,7 @@ module Zoning
 
 		def self.geocode(subdomain, query={})
 			key = 'addresses'
-			query_string = {q: query}.to_query
+			query_string = Faraday::Utils::ParamsHash.new.merge({q: query}).to_query
 			connection = Zoning::Connection.connect(subdomain, :en, "geocode.json", query_string).get
 			Zoning::Connection.parse(connection, key)
 		end

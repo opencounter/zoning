@@ -1,5 +1,6 @@
 module Zoning
 	module Tenants
+    prepend SearchParamsValidator
 
 		def self.find(id)
 			key = 'tenant'
@@ -13,15 +14,10 @@ module Zoning
 			Zoning::Connection.parse(connection, key)
 		end
 
-		# Tenants.search method takes the following, optional params:
-		# :id, Integer
-		# :name, String
-		# :subdomain, String
-		# :keywords, String
-
-		def self.search(query={})
+    ALLOWED_SEARCH_PARAMS = %i(id name slug subdomain keywords featured)
+    def self.search(query={})
 			key = 'tenants'
-			query_string = {q: query}.to_query
+			query_string = Faraday::Utils::ParamsHash.new.merge({q: query}).to_query
 			connection = Zoning::Connection.connect(nil, :en, "tenants/search.json", query_string).get
 			Zoning::Connection.parse(connection, key)
 		end

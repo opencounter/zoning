@@ -1,5 +1,6 @@
 module Zoning
 	module Uses
+    prepend SearchParamsValidator
 
 		def self.find(subdomain, locale, id)
 			key = 'use'
@@ -13,18 +14,10 @@ module Zoning
 			Zoning::Connection.parse(connection, key)
 		end
 
-		# Uses.search takes the following, optional params:
-		# :id, Integer
-		# :category_id, Integer
-		# :name, String
-		# :full_name, String
-		# :code, String
-		# :description, String
-		# :keywords, String
-
+    ALLOWED_SEARCH_PARAMS = %i(id slug name full_name description category_name keywords featured)
 		def self.search(subdomain, locale, query={})
 			key = 'uses'
-			query_string = {q: query}.to_query
+			query_string = Faraday::Utils::ParamsHash.new.merge({q: query}).to_query
 			connection = Zoning::Connection.connect(subdomain, locale, "uses/search.json", query_string).get
 			Zoning::Connection.parse(connection, key)			
 		end
