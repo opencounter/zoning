@@ -14,14 +14,21 @@ module Zoning
 			Zoning::Connection.parse(connection, key)
 		end
 
-    ALLOWED_SEARCH_PARAMS = %i(id slug name full_name description category_name keywords featured)
-		def self.search(subdomain, locale, query={})
+    ALLOWED_SEARCH_PARAMS = %i(id slug name full_name description category_name featured)
+		def self.where(subdomain, locale, query={})
+			key = 'uses'
+			query_string = Faraday::Utils::ParamsHash.new.merge({q: query}).to_query
+			connection = Zoning::Connection.connect(subdomain, locale, "uses/where.json", query_string).get
+			Zoning::Connection.parse(connection, key)
+		end
+
+		def self.search(subdomain, locale, keywords)
 			key = 'uses'
 			query_string = Faraday::Utils::ParamsHash.new.merge({q: query}).to_query
 			connection = Zoning::Connection.connect(subdomain, locale, "uses/search.json", query_string).get
-			Zoning::Connection.parse(connection, key)			
+			Zoning::Connection.parse(connection, key)
 		end
-	
+
 	end
 
 end
