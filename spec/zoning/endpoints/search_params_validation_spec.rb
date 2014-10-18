@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Zoning
-  describe "Search parameter validation on #where" do
+  describe "Search parameter validation on #query" do
       let(:locale) { :en }
       let(:subdomain) { :tenant }
 
@@ -12,7 +12,7 @@ module Zoning
 
       describe "zones" do
         before(:each) do
-          stub_request(:get, /zones\/where\.json/)
+          stub_request(:get, /zones\/query\.json/)
         end
 
         it "accepts valid search params" do
@@ -25,21 +25,21 @@ module Zoning
             latitude: 0.0,
             longitude: 0.0
           }
-          expect { Zones.where(subdomain, locale, query) }.to_not raise_error
+          expect { Zones.query(subdomain, locale, query) }.to_not raise_error
           query.delete(:radius)
-          expect { Zones.where(subdomain, locale, query) }.to_not raise_error
+          expect { Zones.query(subdomain, locale, query) }.to_not raise_error
         end
 
         it "raises an error in presence of an undefined param" do
           query = { name: 'valid', notaparam: 'invalid' }
-          expect { Zones.where(subdomain, locale, query) }.
+          expect { Zones.query(subdomain, locale, query) }.
             to raise_error(InvalidParameterError, /notaparam/)
         end
       end
 
       describe "zone_clearances" do
         before(:each) do
-          stub_request(:get, /zone_clearances\/where\.json/)
+          stub_request(:get, /zone_clearances\/query\.json/)
         end
 
         it "accepts valid search params" do
@@ -47,21 +47,21 @@ module Zoning
             use: { slug: 'test' },
             parameters: [:attr1, :attr2]
           }
-          expect { ZoneClearances.where(subdomain, locale, query) }.to_not raise_error
+          expect { ZoneClearances.query(subdomain, locale, query) }.to_not raise_error
           query.delete(:use)
-          expect { ZoneClearances.where(subdomain, locale, query) }.to_not raise_error
+          expect { ZoneClearances.query(subdomain, locale, query) }.to_not raise_error
         end
 
         it "raises an error in presence of an undefined param" do
           query = { use: 'valid', notaparam: 'invalid' }
-          expect { ZoneClearances.where(subdomain, locale, query) }.
+          expect { ZoneClearances.query(subdomain, locale, query) }.
             to raise_error(InvalidParameterError, /notaparam/)
         end
       end
 
       describe "uses" do
         before(:each) do
-          stub_request(:get, /uses\/where\.json/)
+          stub_request(:get, /uses\/query\.json/)
         end
 
         it "accepts valid search params" do
@@ -71,40 +71,40 @@ module Zoning
             full_name: '',
             description: ''
           }
-          expect { Uses.where(subdomain, locale, query) }.to_not raise_error
+          expect { Uses.query(subdomain, locale, query) }.to_not raise_error
           query.delete(:name)
-          expect { Uses.where(subdomain, locale, query) }.to_not raise_error
+          expect { Uses.query(subdomain, locale, query) }.to_not raise_error
         end
 
         it "raises an error in presence of an undefined param" do
           query = { name: 'valid', notaparam: 'invalid' }
-          expect { Uses.where(subdomain, locale, query) }.
+          expect { Uses.query(subdomain, locale, query) }.
             to raise_error(InvalidParameterError, /notaparam/)
         end
       end
 
       describe "attributes" do
         before(:each) do
-          stub_request(:get, /attributes\/where\.json/)
+          stub_request(:get, /attributes\/query\.json/)
         end
 
         it "accepts valid search params" do
           query = {
             use: { slug: 'slug' }
           }
-          expect { Attributes.where(subdomain, locale, query) }.to_not raise_error
+          expect { Attributes.query(subdomain, locale, query) }.to_not raise_error
         end
 
         it "raises an error in presence of an undefined param" do
           query = { slug: 'valid', notaparam: 'invalid' }
-          expect { Attributes.where(subdomain, locale, query) }.
+          expect { Attributes.query(subdomain, locale, query) }.
             to raise_error(InvalidParameterError, /notaparam/)
         end
       end
 
       describe "tenants" do
         before(:each) do
-          stub_request(:get, /tenants\/where\.json/)
+          stub_request(:get, /tenants\/query\.json/)
         end
 
         it "accepts valid search params" do
@@ -113,21 +113,21 @@ module Zoning
             name: '',
             subdomain: ''
           }
-          expect { Tenants.where(query) }.to_not raise_error
+          expect { Tenants.query(query) }.to_not raise_error
           query.delete(:subdomain)
-          expect { Tenants.where(query) }.to_not raise_error
+          expect { Tenants.query(query) }.to_not raise_error
         end
 
         it "raises an error in presence of an undefined param" do
           query = { name: 'valid', notaparam: 'invalid' }
-          expect { Tenants.where(query) }.
+          expect { Tenants.query(query) }.
             to raise_error(InvalidParameterError, /notaparam/)
         end
       end
 
       describe "permissions" do
         before(:each) do
-          stub_request(:get, /permissions\/where\.json/)
+          stub_request(:get, /permissions\/query\.json/)
         end
 
         it "accepts valid search params" do
@@ -138,14 +138,14 @@ module Zoning
             description: '',
             type: ''
           }
-          expect { Permissions.where(subdomain, locale, query) }.to_not raise_error
+          expect { Permissions.query(subdomain, locale, query) }.to_not raise_error
           query.delete(:type)
-          expect { Permissions.where(subdomain, locale, query) }.to_not raise_error
+          expect { Permissions.query(subdomain, locale, query) }.to_not raise_error
         end
 
         it "raises an error in presence of an undefined param" do
           query = { name: 'valid', notaparam: 'invalid' }
-          expect { Permissions.where(subdomain, locale, query) }.
+          expect { Permissions.query(subdomain, locale, query) }.
             to raise_error(InvalidParameterError, /notaparam/)
         end
       end
@@ -163,21 +163,21 @@ module Zoning
             permission: '',
             parameters: ''
           }
-          expect { Clearance.where(subdomain, locale, query) }.to_not raise_error
+          expect { Clearance.query(subdomain, locale, query) }.to_not raise_error
           query.delete(:zone)
-          expect { Clearance.where(subdomain, locale, query) }.to_not raise_error
+          expect { Clearance.query(subdomain, locale, query) }.to_not raise_error
         end
 
         it "raises an error in presence of an undefined param" do
           query = { name: 'valid', notaparam: 'invalid' }
-          expect { Clearance.where(subdomain, locale, query) }.
+          expect { Clearance.query(subdomain, locale, query) }.
             to raise_error(InvalidParameterError, /notaparam/)
         end
       end
 
-      describe "zones#where" do
+      describe "zones#query" do
         before(:each) do
-          stub_request(:get, /zones\/where\.json/)
+          stub_request(:get, /zones\/query\.json/)
         end
 
         it "accepts valid search params" do
@@ -190,14 +190,14 @@ module Zoning
             latitude: 0.0,
             longitude: 0.0
           }
-          expect { Zones.where(subdomain, locale, query) }.to_not raise_error
+          expect { Zones.query(subdomain, locale, query) }.to_not raise_error
           query.delete(:radius)
-          expect { Zones.where(subdomain, locale, query) }.to_not raise_error
+          expect { Zones.query(subdomain, locale, query) }.to_not raise_error
         end
 
         it "raises an error in presence of an undefined param" do
           query = { name: 'valid', notaparam: 'invalid' }
-          expect { Zones.where(subdomain, locale, query) }.
+          expect { Zones.query(subdomain, locale, query) }.
             to raise_error(InvalidParameterError, /notaparam/)
         end
       end

@@ -22,10 +22,10 @@ module Zoning
 		end
 
     ALLOWED_SEARCH_PARAMS = %i(id name slug subdomain featured)
-    def self.where(query={})
+    def self.query(query={})
 			key = 'tenants'
 			query_string = Faraday::Utils::ParamsHash.new.merge({q: query}).to_query
-			connection = Zoning::Connection.connect(nil, :en, "tenants/where.json", query_string).get
+			connection = Zoning::Connection.connect(nil, :en, "tenants/query.json", query_string).get
 			Zoning::Connection.parse(connection, key)
 		end
 
