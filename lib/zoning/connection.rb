@@ -38,6 +38,7 @@ module Zoning
             end
           rescue
             puts "Zoning API Error: invalid json response"
+            puts response.body
             return nil
           end
         end
