@@ -56,7 +56,7 @@ module Zoning
           OAuth2::Client.new(
             Zoning.configuration.client_id,
             Zoning.configuration.client_secret,
-            site: "http://zoning.io/",
+            site: "http://zoning.us/",
             token_url: "/admin/oauth/token"
           ).client_credentials.get_token.token
         rescue Exception => e
