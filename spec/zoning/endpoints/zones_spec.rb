@@ -11,12 +11,12 @@ module Zoning
     end
 
     describe "#list" do
-      it "invalid response gives \"Invalid json response\"" do
+      it "returns nil if cannot parse response" do
         stub_request(:get, /zones\.json/).
           to_return(status: 200, headers: {'Content-Type' => 'application/json'},
-                    body: { 'zines' => [] }.to_json)
+                    body: { 'zzoonneess' => [] }.to_json)
         zones = Zones.list(subdomain, locale)
-        expect(zones).to eq("Invalid json response")
+        expect(zones).to eq(nil)
       end
 
       it "parses the response body as a list of zones" do
