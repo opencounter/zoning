@@ -9,7 +9,7 @@ module Zoning
 
       locale ||= :en
       protocol = 'https://'
-      site_url = 'zoning.io'
+      site_url = 'zoning.us'
       base_url = "#{site_url}/#{locale.to_s}/api/1.0/"
       if subdomain
         absolute_url = "#{protocol}#{subdomain}.#{base_url}#{path}?#{query_string}"
