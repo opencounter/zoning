@@ -31,7 +31,7 @@ module Zoning
 
 		def self.geojson(subdomain)
 			# base_url = "http://d3twrm58ezzfsc.cloudfront.net/tenants/"
-			base_url = "http://zoningcheck.s3.amazonaws.com/tenants/"
+			base_url = "http://zoningcheck.s3.amazonaws.com/geojson/"
 			connection = Faraday.new(:url => "#{base_url}#{subdomain}.geojson").get
 			if connection.try(:body).present?
 				begin
