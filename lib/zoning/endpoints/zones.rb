@@ -2,13 +2,13 @@ module Zoning
 	module Zones
     prepend SearchParamsValidator
 
+		ALLOWED_SEARCH_PARAMS = %i(id slug code name description latitude longitude overlay)
+
 		def self.find(subdomain, locale, id)
 			key = 'zone'
 			connection = Zoning::Connection.connect(subdomain, locale, "zones/#{id}.json").get
 			Zoning::Connection.parse(connection, key)
 		end
-
-    ALLOWED_SEARCH_PARAMS = %i(id slug code name description latitude longitude overlay)
 
 		def self.list(subdomain, locale, query={})
 			key = 'zones'

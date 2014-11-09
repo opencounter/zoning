@@ -11,7 +11,7 @@ require "zoning/endpoints/clearances"
 require "zoning/endpoints/geo"
 require "zoning/endpoints/permissions"
 require "zoning/endpoints/tenants"
-require "zoning/endpoints/uses"
+require "zoning/endpoints/land_uses"
 require "zoning/endpoints/zones"
 
 require 'oj'
