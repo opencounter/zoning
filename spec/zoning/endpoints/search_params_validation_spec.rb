@@ -37,28 +37,6 @@ module Zoning
         end
       end
 
-      describe "zone_clearances" do
-        before(:each) do
-          stub_request(:get, /zone_clearances\/query\.json/)
-        end
-
-        it "accepts valid search params" do
-          query = {
-            use: { slug: 'test' },
-            parameters: [:attr1, :attr2]
-          }
-          expect { ZoneClearances.query(subdomain, locale, query) }.to_not raise_error
-          query.delete(:use)
-          expect { ZoneClearances.query(subdomain, locale, query) }.to_not raise_error
-        end
-
-        it "raises an error in presence of an undefined param" do
-          query = { use: 'valid', notaparam: 'invalid' }
-          expect { ZoneClearances.query(subdomain, locale, query) }.
-            to raise_error(InvalidParameterError, /notaparam/)
-        end
-      end
-
       describe "uses" do
         before(:each) do
           stub_request(:get, /uses\/query\.json/)
@@ -150,9 +128,9 @@ module Zoning
         end
       end
 
-      describe "clearance" do
+      describe "clearances#calculate" do
         before(:each) do
-          stub_request(:get, /clearance\.json/)
+          stub_request(:get, /clearances\/calculate\.json/)
         end
 
         it "accepts valid search params" do
@@ -163,17 +141,40 @@ module Zoning
             permission: '',
             parameters: ''
           }
-          expect { Clearance.query(subdomain, locale, query) }.to_not raise_error
+          expect { Clearances.calculate(subdomain, locale, query) }.to_not raise_error
           query.delete(:zone)
-          expect { Clearance.query(subdomain, locale, query) }.to_not raise_error
+          expect { Clearances.calcaulte(subdomain, locale, query) }.to_not raise_error
         end
 
         it "raises an error in presence of an undefined param" do
           query = { name: 'valid', notaparam: 'invalid' }
-          expect { Clearance.query(subdomain, locale, query) }.
+          expect { Clearances.calculate(subdomain, locale, query) }.
             to raise_error(InvalidParameterError, /notaparam/)
         end
       end
+
+      describe "clearances#query" do
+        before(:each) do
+          stub_request(:get, /clearances\/query\.json/)
+        end
+
+        it "accepts valid search params" do
+          query = {
+            use: { slug: 'test' },
+            parameters: [:attr1, :attr2]
+          }
+          expect { Clearances.query(subdomain, locale, query) }.to_not raise_error
+          query.delete(:use)
+          expect { Clearances.query(subdomain, locale, query) }.to_not raise_error
+        end
+
+        it "raises an error in presence of an undefined param" do
+          query = { use: 'valid', notaparam: 'invalid' }
+          expect { Clearances.query(subdomain, locale, query) }.
+            to raise_error(InvalidParameterError, /notaparam/)
+        end
+      end
+
 
       describe "zones#query" do
         before(:each) do
