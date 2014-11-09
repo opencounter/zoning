@@ -3,7 +3,7 @@ require 'spec_helper'
 module Zoning
   describe Zones do
     let(:locale) { :en }
-    let(:subdomain) { :tenant }
+    let(:subdomain) { :jurisdiction }
 
     before(:each) do
       configure_zoning

@@ -3,7 +3,7 @@ require 'spec_helper'
 module Zoning
   describe "Search parameter validation on #list" do
       let(:locale) { :en }
-      let(:subdomain) { :tenant }
+      let(:subdomain) { :jurisdiction }
 
       before(:each) do
         configure_zoning
@@ -136,11 +136,11 @@ module Zoning
       end
 
 
-      ##### TENANTS #####
+      ##### JURISDICTIONS #####
 
-      describe "tenants" do
+      describe "jurisdictions" do
         before(:each) do
-          stub_request(:get, /tenants\.json/)
+          stub_request(:get, /jurisdictions\.json/)
         end
 
         it "accepts valid search params" do
@@ -149,14 +149,14 @@ module Zoning
             name: '',
             subdomain: ''
           }
-          expect { Tenants.list(query) }.to_not raise_error
+          expect { Jurisdictions.list(query) }.to_not raise_error
           query.delete(:subdomain)
-          expect { Tenants.list(query) }.to_not raise_error
+          expect { Jurisdictions.list(query) }.to_not raise_error
         end
 
         it "raises an error in presence of an undefined param" do
           query = { name: 'valid', notaparam: 'invalid' }
-          expect { Tenants.list(query) }.
+          expect { Jurisdictions.list(query) }.
             to raise_error(InvalidParameterError, /notaparam/)
         end
       end

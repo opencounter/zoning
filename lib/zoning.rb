@@ -9,9 +9,9 @@ require "zoning/search_params_validator"
 require "zoning/endpoints/attributes"
 require "zoning/endpoints/clearances"
 require "zoning/endpoints/geo"
-require "zoning/endpoints/permissions"
-require "zoning/endpoints/tenants"
+require "zoning/endpoints/jurisdictions"
 require "zoning/endpoints/land_uses"
+require "zoning/endpoints/permissions"
 require "zoning/endpoints/zones"
 
 require 'oj'

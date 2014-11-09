@@ -1,26 +1,26 @@
 module Zoning
-	module Tenants
+	module Jurisdictions
     prepend SearchParamsValidator
 
 		ALLOWED_SEARCH_PARAMS = %i(id name slug subdomain featured)
 
 		def self.find(id)
-			key = 'tenant'
-			connection = Zoning::Connection.connect(nil, :en, "tenants/#{id}.json").get
+			key = 'jurisdiction'
+			connection = Zoning::Connection.connect(nil, :en, "jurisdictions/#{id}.json").get
 			Zoning::Connection.parse(connection, key)
 		end
 
 		def self.list(query={})
-			key = 'tenants'
+			key = 'jurisdictions'
 			query_string = Faraday::Utils::ParamsHash.new.merge({q: query}).to_query
-			connection = Zoning::Connection.connect(nil, :en, "tenants.json", query_string).get
+			connection = Zoning::Connection.connect(nil, :en, "jurisdictions.json", query_string).get
 			Zoning::Connection.parse(connection, key)
 		end
 
 		def self.search(keywords)
-			key = 'tenant'
+			key = 'jurisdictions'
 			query_string = Faraday::Utils::ParamsHash.new.merge({q: keywords}).to_query
-			connection = Zoning::Connection.connect(nil, :en, "tenants/search.json", query_string).get
+			connection = Zoning::Connection.connect(nil, :en, "jurisdictions/search.json", query_string).get
 			Zoning::Connection.parse(connection, key)
 		end
 
