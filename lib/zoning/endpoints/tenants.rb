@@ -8,9 +8,12 @@ module Zoning
 			Zoning::Connection.parse(connection, key)
 		end
 
-		def self.list
+		ALLOWED_SEARCH_PARAMS = %i(id name slug subdomain featured)
+		
+		def self.list(query={})
 			key = 'tenants'
-			connection = Zoning::Connection.connect(nil, :en, "tenants.json").get
+			query_string = Faraday::Utils::ParamsHash.new.merge({q: query}).to_query
+			connection = Zoning::Connection.connect(nil, :en, "tenants.json", query_string).get
 			Zoning::Connection.parse(connection, key)
 		end
 
@@ -18,14 +21,6 @@ module Zoning
 			key = 'tenant'
 			query_string = Faraday::Utils::ParamsHash.new.merge({q: keywords}).to_query
 			connection = Zoning::Connection.connect(nil, :en, "tenants/search.json", query_string).get
-			Zoning::Connection.parse(connection, key)
-		end
-
-    ALLOWED_SEARCH_PARAMS = %i(id name slug subdomain featured)
-    def self.query(query={})
-			key = 'tenants'
-			query_string = Faraday::Utils::ParamsHash.new.merge({q: query}).to_query
-			connection = Zoning::Connection.connect(nil, :en, "tenants/query.json", query_string).get
 			Zoning::Connection.parse(connection, key)
 		end
 

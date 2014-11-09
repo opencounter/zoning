@@ -8,17 +8,12 @@ module Zoning
 			Zoning::Connection.parse(connection, key)
 		end
 
-		def self.list(subdomain, locale)
-			key = 'zones'
-			connection = Zoning::Connection.connect(subdomain, locale, "zones.json").get
-			Zoning::Connection.parse(connection, key)
-		end
-
     ALLOWED_SEARCH_PARAMS = %i(id code name description latitude longitude overlay)
-		def self.query(subdomain, locale, query={})
+		
+		def self.list(subdomain, locale, query={})
 			key = 'zones'
 			query_string = Faraday::Utils::ParamsHash.new.merge({q: query}).to_query
-			connection = Zoning::Connection.connect(subdomain, locale, "zones/query.json", query_string).get
+			connection = Zoning::Connection.connect(subdomain, locale, "zones.json", query_string).get
 			Zoning::Connection.parse(connection, key)
 
 		end

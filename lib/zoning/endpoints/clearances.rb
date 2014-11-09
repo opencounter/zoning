@@ -4,10 +4,10 @@ module Zoning
 
     ALLOWED_SEARCH_PARAMS = %i(id zone use permission parameters)
 
-		def self.query(subdomain, locale, query={})
+		def self.list(subdomain, locale, query={})
 			key = 'clearances'
 			query_string = Faraday::Utils::ParamsHash.new.merge({q: query}).to_query
-			connection = Zoning::Connection.connect(subdomain, locale, "clearances/query.json", query_string).get
+			connection = Zoning::Connection.connect(subdomain, locale, "clearances.json", query_string).get
 			Zoning::Connection.parse(connection, key)
 		end
 
