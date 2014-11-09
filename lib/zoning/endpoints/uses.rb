@@ -8,8 +8,8 @@ module Zoning
 			Zoning::Connection.parse(connection, key)
 		end
 
-    ALLOWED_SEARCH_PARAMS = %i(id slug name full_name description category_name featured)
-		
+    ALLOWED_SEARCH_PARAMS = %i(id slug name category_name sub_category_name full_name description featured)
+
 		def self.list(subdomain, locale, query={})
 			key = 'uses'
 			query_string = Faraday::Utils::ParamsHash.new.merge({q: query}).to_query
