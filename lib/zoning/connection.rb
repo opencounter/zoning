@@ -8,8 +8,8 @@ module Zoning
       raise ConfigurationError.new(:client_secret) unless Zoning.configuration.client_secret
 
       locale ||= :en
-      protocol = 'https://'
-      site_url = 'zoning.io'
+      protocol = 'http://'
+      site_url = 'zoning.us'
       base_url = "#{site_url}/#{locale.to_s}/api/1.0/"
       if subdomain
         absolute_url = "#{protocol}#{subdomain}.#{base_url}#{path}?#{query_string}"
@@ -56,7 +56,7 @@ module Zoning
           OAuth2::Client.new(
             Zoning.configuration.client_id,
             Zoning.configuration.client_secret,
-            site: "https://zoning.io/",
+            site: "http://zoning.us/",
             token_url: "/admin/oauth/token"
           ).client_credentials.get_token.token
         rescue Exception => e
