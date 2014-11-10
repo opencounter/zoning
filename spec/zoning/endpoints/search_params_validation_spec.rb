@@ -108,34 +108,6 @@ module Zoning
       end
 
 
-      ##### PERMISSION #####
-
-      describe "permissions" do
-        before(:each) do
-          stub_request(:get, /permissions\.json/)
-        end
-
-        it "accepts valid search params" do
-          query = {
-            id: 0,
-            code: '',
-            name: '',
-            description: '',
-            type: ''
-          }
-          expect { Permissions.list(subdomain, locale, query) }.to_not raise_error
-          query.delete(:type)
-          expect { Permissions.list(subdomain, locale, query) }.to_not raise_error
-        end
-
-        it "raises an error in presence of an undefined param" do
-          query = { name: 'valid', notaparam: 'invalid' }
-          expect { Permissions.list(subdomain, locale, query) }.
-            to raise_error(InvalidParameterError, /notaparam/)
-        end
-      end
-
-
       ##### JURISDICTIONS #####
 
       describe "jurisdictions" do
@@ -161,6 +133,34 @@ module Zoning
         end
       end
 
+
+      ##### PERMISSION TYPES #####
+
+      describe "permissions" do
+        before(:each) do
+          stub_request(:get, /permission_types\.json/)
+        end
+
+        it "accepts valid search params" do
+          query = {
+            id: 0,
+            code: '',
+            name: '',
+            description: '',
+            type: ''
+          }
+          expect { PermissionTypes.list(subdomain, locale, query) }.to_not raise_error
+          query.delete(:type)
+          expect { PermissionTypes.list(subdomain, locale, query) }.to_not raise_error
+        end
+
+        it "raises an error in presence of an undefined param" do
+          query = { name: 'valid', notaparam: 'invalid' }
+          expect { Permissions.list(subdomain, locale, query) }.
+            to raise_error(InvalidParameterError, /notaparam/)
+        end
+      end
+      
 
       ##### ZONES #####
 
