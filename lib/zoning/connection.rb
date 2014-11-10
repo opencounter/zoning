@@ -30,6 +30,7 @@ module Zoning
           return nil
         else
           begin
+            puts "#{response.body}"
             parsed_response = Oj.load(response.body, bigdecimal_load: :float)
             if key
               parsed_response.fetch(key)
