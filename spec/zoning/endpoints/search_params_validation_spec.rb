@@ -13,21 +13,21 @@ module Zoning
 
       ##### ATTRIBUTES #####
 
-      describe "attributes" do
+      describe "land_use_conditions" do
         before(:each) do
-          stub_request(:get, /attributes\.json/)
+          stub_request(:get, /land_use_conditions\.json/)
         end
 
         it "accepts valid search params" do
           query = {
             use: { slug: 'slug' }
           }
-          expect { Attributes.list(subdomain, locale, query) }.to_not raise_error
+          expect { LandUseConditions.list(subdomain, locale, query) }.to_not raise_error
         end
 
         it "raises an error in presence of an undefined param" do
           query = { slug: 'valid', notaparam: 'invalid' }
-          expect { Attributes.list(subdomain, locale, query) }.
+          expect { LandUseConditions.list(subdomain, locale, query) }.
             to raise_error(InvalidParameterError, /notaparam/)
         end
       end
@@ -160,7 +160,7 @@ module Zoning
             to raise_error(InvalidParameterError, /notaparam/)
         end
       end
-      
+
 
       ##### ZONES #####
 

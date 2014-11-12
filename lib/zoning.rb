@@ -6,11 +6,11 @@ require "zoning/invalid_parameter_error"
 require "zoning/configuration_error"
 require "zoning/search_params_validator"
 
-require "zoning/endpoints/attributes"
 require "zoning/endpoints/clearances"
 require "zoning/endpoints/geo"
 require "zoning/endpoints/jurisdictions"
 require "zoning/endpoints/land_uses"
+require "zoning/endpoints/land_use_conditions"
 require "zoning/endpoints/permission_types"
 require "zoning/endpoints/zones"
 
