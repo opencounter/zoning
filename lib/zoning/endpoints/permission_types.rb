@@ -1,8 +1,5 @@
 module Zoning
 	module PermissionTypes
-    prepend SearchParamsValidator
-
-    ALLOWED_SEARCH_PARAMS = %i(id code name description type)
 
 		def self.list(subdomain, locale, query={})
 			key = 'permission_types'

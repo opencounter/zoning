@@ -1,8 +1,5 @@
 module Zoning
 	module Zones
-    prepend SearchParamsValidator
-
-		ALLOWED_SEARCH_PARAMS = %i(id slug code name description latitude longitude overlay)
 
 		def self.find(subdomain, locale, id)
 			key = 'zone'

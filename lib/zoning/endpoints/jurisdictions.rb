@@ -1,8 +1,5 @@
 module Zoning
 	module Jurisdictions
-    prepend SearchParamsValidator
-
-		ALLOWED_SEARCH_PARAMS = %i(id name slug subdomain featured)
 
 		def self.find(id)
 			key = 'jurisdiction'

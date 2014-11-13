@@ -1,8 +1,5 @@
 module Zoning
 	module LandUses
-    prepend SearchParamsValidator
-
-		ALLOWED_SEARCH_PARAMS = %i(id slug name category_name sub_category_name full_name description featured)
 
 		def self.find(subdomain, locale, id)
 			key = 'land_use'

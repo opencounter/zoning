@@ -1,8 +1,5 @@
 module Zoning
 	module Clearances
-    prepend SearchParamsValidator
-
-    ALLOWED_SEARCH_PARAMS = %i(id zone use permission parameters)
 
 		def self.list(subdomain, locale, query={})
 			key = 'clearances'
