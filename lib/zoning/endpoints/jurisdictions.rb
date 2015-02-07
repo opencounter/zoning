@@ -14,20 +14,12 @@ module Zoning
 			Zoning::Connection.parse(connection, key)
 		end
 
-		def self.geojson(subdomain)
-			base_url = "http://d2ks5jj5byfwun.cloudfront.net/geojson/"
-			# base_url = "http://zoning-api.s3.amazonaws.com/geojson/"
-			connection = Faraday.new(:url => "#{base_url}#{subdomain}.geojson").get
-			if connection.try(:body).present?
-				begin
-					Oj.load(connection.body, bigdecimal_load: :float).to_json
-				rescue
-					puts "Zoning API Error: invalid json response"
-					return nil
-				end
+		def self.geojson(subdomain, parse: true)
+			connection = Zoning::Connection.connect(nil, :en, "jurisdictions/#{subdomain}.geojson").get
+			if parse
+				Zoning::Connection.parse(connection)
 			else
-				puts "Zoning API Error: no response body"
-				return nil
+				connection.body
 			end
 		end
 
