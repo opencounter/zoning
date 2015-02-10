@@ -19,7 +19,7 @@ module Zoning
 			if parse
 				Zoning::Connection.parse(connection)
 			else
-				connection.body
+				Zoning::Connection.verify(connection)
 			end
 		end
 

@@ -24,23 +24,30 @@ module Zoning
     end
 
     def self.parse(response, key=nil)
+      body = self.verify(response)
+      if body
+        begin
+          parsed_response = Oj.load(body, bigdecimal_load: :float)
+          if key
+            parsed_response.fetch(key)
+          else
+            parsed_response
+          end
+        rescue
+          puts "Zoning API Error: invalid json response"
+          puts response.body
+          return nil
+        end
+      end
+    end
+    
+    def self.verify(response)
       if response.body
         if response.status == 401
           puts "Zoning API Error: 401 access denied."
           return nil
         else
-          begin
-            parsed_response = Oj.load(response.body, bigdecimal_load: :float)
-            if key
-              parsed_response.fetch(key)
-            else
-              parsed_response
-            end
-          rescue
-            puts "Zoning API Error: invalid json response"
-            puts response.body
-            return nil
-          end
+          return self.body(response)
         end
       else
         puts "Zoning API Error: no response body"
@@ -67,5 +74,60 @@ module Zoning
           end
         end
     end
+    
+    # All this encoding stuff is adapted from HTTParty.
+    # Net::HTTP and Faraday have broken character encoding, so fix it :\
+    def self.body(response)
+      if response.body
+        charset = get_charset(response)
+        
+        if charset.nil?
+          return response.body
+        end
+
+        if "utf-16".casecmp(charset) == 0
+          encode_utf_16(response.body)
+        else
+          begin
+            encoding = Encoding.find(charset)
+            response.body.force_encoding(encoding)
+          rescue
+            response.body
+          end
+        end
+      end
+    end
+    
+    def self.get_charset(response)
+      content_type = response.headers["content-type"]
+      if content_type.nil?
+        return nil
+      end
+
+      if content_type =~ /;\s*charset\s*=\s*([^=,;"\s]+)/i
+        return $1
+      end
+
+      if content_type =~ /;\s*charset\s*=\s*"((\\.|[^\\"])+)"/i
+        return $1.gsub(/\\(.)/, '\1')
+      end
+
+      nil
+    end
+    
+    def self.encode_utf_16(body)
+      if body.bytesize >= 2
+        if body.getbyte(0) == 0xFF && body.getbyte(1) == 0xFE
+          return body.force_encoding("UTF-16LE")
+        elsif body.getbyte(0) == 0xFE && body.getbyte(1) == 0xFF
+          return body.force_encoding("UTF-16BE")
+        end
+      end
+
+      # No good indicators. Make an assumption.
+      body.force_encoding("UTF-16BE")
+    end
+    
+    
   end
 end
