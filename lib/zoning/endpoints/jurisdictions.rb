@@ -22,6 +22,15 @@ module Zoning
 				Zoning::Connection.verify(connection)
 			end
 		end
+		
+		def self.topojson(subdomain, parse: true)
+			connection = Zoning::Connection.connect(nil, :en, "jurisdictions/#{subdomain}.topojson").get
+			if parse
+				Zoning::Connection.parse(connection)
+			else
+				Zoning::Connection.verify(connection)
+			end
+		end
 
 	end
 end
