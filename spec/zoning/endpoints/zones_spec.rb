@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-module Zoning
+module ZoningAPI
   describe Zones do
     let(:locale) { :en }
     let(:subdomain) { :jurisdiction }

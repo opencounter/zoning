@@ -1,4 +1,4 @@
-require_relative '../lib/zoning'
+require_relative '../lib/zoning_api'
 Dir[__dir__ + '/support/**/*.rb'].each { |f| require f }
 
 require 'webmock/rspec'

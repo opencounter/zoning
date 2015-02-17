@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-module Zoning
+module ZoningAPI
   describe Connection do
     before(:each) do
       configure_zoning
@@ -16,7 +16,7 @@ module Zoning
       end
 
       it "#connect raises ConfigurationError when missing the client_id" do
-        Zoning.configure do |c|
+        ZoningAPI.configure do |c|
           c.client_secret = 'secret'
           c.client_id = nil
         end
@@ -24,7 +24,7 @@ module Zoning
       end
 
       it "#connect raises ConfigurationError when missing the client_secret" do
-        Zoning.configure do |c|
+        ZoningAPI.configure do |c|
           c.client_secret = nil
           c.client_id = 'id'
         end

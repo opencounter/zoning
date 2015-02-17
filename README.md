@@ -12,7 +12,7 @@ ID and App Secret) in an initializer:
 **These fields are required.**
 
     # config/initializers/zoning_api.rb
-    Zoning.configure do |config|
+    ZoningAPI.configure do |config|
       config.client_id = ENV['ZONING_API_CLIENT_ID']
       config.client_secret = ENV['ZONING_API_CLIENT_SECRET']
     end

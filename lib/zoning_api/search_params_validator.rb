@@ -1,4 +1,4 @@
-module Zoning
+module ZoningAPI
   module SearchParamsValidator
     module BaseValidator
       def query(arg1, arg2=nil, arg3=nil)
@@ -20,7 +20,7 @@ module Zoning
             super(query)
           end
         else
-          raise Zoning::InvalidParameterError.new(extra_params)
+          raise ZoningAPI::InvalidParameterError.new(extra_params)
         end
       end
     end

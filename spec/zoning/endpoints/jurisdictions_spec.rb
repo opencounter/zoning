@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-module Zoning
+module ZoningAPI
   RSpec.describe Jurisdictions do
 
     before(:each) do

@@ -1,15 +1,15 @@
 require 'oauth2'
 
-module Zoning
+module ZoningAPI
   class Connection
 
     def self.connect(subdomain = nil, locale = nil, path = nil, query_string=nil)
-      raise ConfigurationError.new(:client_id) unless Zoning.configuration.client_id
-      raise ConfigurationError.new(:client_secret) unless Zoning.configuration.client_secret
+      raise ConfigurationError.new(:client_id) unless ZoningAPI.configuration.client_id
+      raise ConfigurationError.new(:client_secret) unless ZoningAPI.configuration.client_secret
 
       locale ||= :en
       protocol = 'http://'
-      site_url = 'zoning.us'
+      site_url = 'zoning.io'
       base_url = "#{site_url}/#{locale.to_s}/api/1.0/"
       if subdomain
         absolute_url = "#{protocol}#{subdomain}.#{base_url}#{path}?#{query_string}"
@@ -40,7 +40,7 @@ module Zoning
         end
       end
     end
-    
+
     def self.verify(response)
       if response.body
         if response.status == 401
@@ -58,12 +58,12 @@ module Zoning
     private
 
     def self.acc_token
-      Zoning.configuration.access_token ||=
+      ZoningAPI.configuration.access_token ||=
         begin
           OAuth2::Client.new(
-            Zoning.configuration.client_id,
-            Zoning.configuration.client_secret,
-            site: "http://zoning.us/",
+            ZoningAPI.configuration.client_id,
+            ZoningAPI.configuration.client_secret,
+            site: "http://zoning.io/",
             token_url: "/admin/oauth/token"
           ).client_credentials.get_token.token
         rescue Exception => e
@@ -74,13 +74,13 @@ module Zoning
           end
         end
     end
-    
+
     # All this encoding stuff is adapted from HTTParty.
     # Net::HTTP and Faraday have broken character encoding, so fix it :\
     def self.body(response)
       if response.body
         charset = get_charset(response)
-        
+
         if charset.nil?
           return response.body
         end
@@ -97,7 +97,7 @@ module Zoning
         end
       end
     end
-    
+
     def self.get_charset(response)
       content_type = response.headers["content-type"]
       if content_type.nil?
@@ -114,7 +114,7 @@ module Zoning
 
       nil
     end
-    
+
     def self.encode_utf_16(body)
       if body.bytesize >= 2
         if body.getbyte(0) == 0xFF && body.getbyte(1) == 0xFE
@@ -127,7 +127,7 @@ module Zoning
       # No good indicators. Make an assumption.
       body.force_encoding("UTF-16BE")
     end
-    
-    
+
+
   end
 end

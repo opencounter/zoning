@@ -1,4 +1,4 @@
-module Zoning
+module ZoningAPI
   class Configuration
     attr_accessor :client_id
     attr_accessor :client_secret

@@ -1,4 +1,4 @@
-class Zoning::ConfigurationError < StandardError
+class ZoningAPI::ConfigurationError < StandardError
   def initialize(type)
     case type
     when :client_id

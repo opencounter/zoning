@@ -1,13 +1,13 @@
 module SetupHelpers
   def configure_zoning
-    Zoning.configure do |c|
+    ZoningAPI.configure do |c|
       c.client_id = 'client_id'
       c.client_secret = 'client_secret'
     end
   end
 
   def self.unconfigure_zoning
-    Zoning.configuration = Zoning::Configuration.new
+    ZoningAPI.configuration = ZoningAPI::Configuration.new
   end
 
   def stub_token_fetch_success
