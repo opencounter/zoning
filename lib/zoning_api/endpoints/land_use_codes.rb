@@ -1,5 +1,5 @@
 module ZoningAPI
-	module LandUses
+	module LandUseCodes
 
 		def self.find(subdomain, locale, id)
 			key = 'land_use'

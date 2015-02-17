@@ -47,14 +47,14 @@
 #             full_name: '',
 #             description: ''
 #           }
-#           expect { LandUses.list(subdomain, locale, query) }.to_not raise_error
+#           expect { LandUseCodes.list(subdomain, locale, query) }.to_not raise_error
 #           query.delete(:name)
-#           expect { LandUses.list(subdomain, locale, query) }.to_not raise_error
+#           expect { LandUseCodes.list(subdomain, locale, query) }.to_not raise_error
 #         end
 #
 #         it "raises an error in presence of an undefined param" do
 #           query = { name: 'valid', notaparam: 'invalid' }
-#           expect { LandUses.list(subdomain, locale, query) }.
+#           expect { LandUseCodes.list(subdomain, locale, query) }.
 #             to raise_error(InvalidParameterError, /notaparam/)
 #         end
 #       end
