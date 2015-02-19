@@ -64,7 +64,7 @@
 #
 #       describe "clearances" do
 #         before(:each) do
-#           stub_request(:get, /clearances\/calculate\.json/)
+#           stub_request(:get, /clearances\/find\.json/)
 #         end
 #
 #         it "accepts valid search params" do
@@ -75,14 +75,14 @@
 #             permission: '',
 #             parameters: ''
 #           }
-#           expect { Clearances.calculate(subdomain, locale, query) }.to_not raise_error
+#           expect { Clearances.find(subdomain, locale, query) }.to_not raise_error
 #           query.delete(:zone)
-#           expect { Clearances.calculate(subdomain, locale, query) }.to_not raise_error
+#           expect { Clearances.find(subdomain, locale, query) }.to_not raise_error
 #         end
 #
 #         it "raises an error in presence of an undefined param" do
 #           query = { name: 'valid', notaparam: 'invalid' }
-#           expect { Clearances.calculate(subdomain, locale, query) }.
+#           expect { Clearances.find(subdomain, locale, query) }.
 #             to raise_error(InvalidParameterError, /notaparam/)
 #         end
 #
