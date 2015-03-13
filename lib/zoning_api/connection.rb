@@ -8,9 +8,9 @@ module ZoningAPI
       raise ConfigurationError.new(:client_secret) unless ZoningAPI.configuration.client_secret
 
       locale ||= :en
-      protocol = 'http://'
-      site_url = 'zoning.io'
-      base_url = "#{site_url}/#{locale.to_s}/api/1.0/"
+      protocol = 'https://'
+      domain = ZoningAPI.configuration.domain || 'zoning.io'
+      base_url = "#{domain}/#{locale.to_s}/api/1.0/"
       if subdomain
         absolute_url = "#{protocol}#{subdomain}.#{base_url}#{path}?#{query_string}"
       else
@@ -63,7 +63,7 @@ module ZoningAPI
           OAuth2::Client.new(
             ZoningAPI.configuration.client_id,
             ZoningAPI.configuration.client_secret,
-            site: "http://zoning.io/",
+            site: "http://#{ZoningAPI.configuration.domain || 'zoning.io'}/",
             token_url: "/admin/oauth/token"
           ).client_credentials.get_token.token
         rescue Exception => e
