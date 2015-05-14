@@ -1,9 +1,14 @@
 module ZoningAPI
 	module Zones
 
-		def self.find(subdomain, locale, id)
+		def self.find(subdomain, locale, id, options={})
 			key = 'zone'
-			connection = ZoningAPI::Connection.connect(subdomain, locale, "zones/#{id}.json").get
+			if options[:format].present? && ['json', 'geojson'].include?(options[:format])
+				format = options[:format]
+			else
+				format = 'json'				
+			end
+			connection = ZoningAPI::Connection.connect(subdomain, locale, "zones/#{id}.#{format}").get
 			ZoningAPI::Connection.parse(connection, key)
 		end
 
