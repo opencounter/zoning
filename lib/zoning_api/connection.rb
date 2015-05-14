@@ -8,7 +8,7 @@ module ZoningAPI
       raise ConfigurationError.new(:client_secret) unless ZoningAPI.configuration.client_secret
 
       locale ||= :en
-      protocol = ZoningAPI.configuration.service_protocol || 'http://'
+      protocol = ZoningAPI.configuration.service_protocol || 'https://'
       domain = ZoningAPI.configuration.service_domain || 'zoning.io'
       base_url = "#{domain}/#{locale.to_s}/api/1.0/"
       if subdomain
