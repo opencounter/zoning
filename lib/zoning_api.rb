@@ -6,6 +6,7 @@ require "zoning_api/invalid_parameter_error"
 require "zoning_api/configuration_error"
 require "zoning_api/search_params_validator"
 
+require "zoning_api/endpoints/categories"
 require "zoning_api/endpoints/clearances"
 require "zoning_api/endpoints/geo"
 require "zoning_api/endpoints/jurisdictions"
