@@ -1,43 +1,59 @@
 require 'spec_helper'
 
 module ZoningAPI
-  describe Zones do
+  describe Zone do
     let(:locale) { :en }
-    let(:subdomain) { :jurisdiction }
+    let(:tenant) { :orlando }
+    let(:code) { "AC-1" }
 
-    before(:each) do
+    before do
       configure_zoning
-      stub_token_fetch_success
+    end
+
+    describe "#find" do
+      it "find by id in correct format" do
+        zones = Zone.list(tenant)
+        zone = Zone.lookup(tenant, zones.first["id"])
+
+        expect(zones.first["id"]).to eq(zone["id"])
+        expect(zone).to include("code")
+        expect(zone).to include("description")
+        expect(zone).to include("overlay")
+      end
     end
 
     describe "#list" do
-      it "returns nil if cannot parse response" do
-        stub_request(:get, /zones\.json/).
+      it "returns [] if cannot parse response" do
+        stub_request(:get, /zones/).
           to_return(status: 200, headers: {'Content-Type' => 'application/json'},
                     body: { 'zzoonneess' => [] }.to_json)
-        zones = Zones.list(subdomain, locale)
-        expect(zones).to eq(nil)
+        zones = Zone.list(tenant)
+        expect(zones).to eq([])
       end
 
-      it "parses the response body as a list of zones" do
-        stub_request(:get, /zones\.json/).
-          to_return(status: 200, headers: {'Content-Type' => 'application/json'},
-                    body: { 'zones' => 'anything' }.to_json)
-        zones = Zones.list(subdomain, locale)
-        expect(zones).to eq('anything')
+      it "resultless without subdomain" do
+        zones = Zone.list(nil)
+        expect(zones).to be_empty()
       end
 
-      context "no subdomain" do
-        let(:subdomain) { nil }
+      it "resultless without subdomain" do
+        zones = Zone.list(nil)
+        expect(zones).to be_empty()
+      end
 
-        it "valid response is empty" do
-          stub_request(:get, /zones\.json/).
-            to_return(status: 200, headers: {'Content-Type' => 'application/json'},
-                      body: { 'zones' => [] }.to_json)
+      it "returns data that looks like a zone" do
+        zones = Zone.list(tenant)
+        zone = zones.first
 
-          zones = Zones.list(subdomain, locale)
-          expect(zones).to eq([])
-        end
+        expect(zone).to include("code")
+        expect(zone).to include("description")
+        expect(zone).to include("overlay")
+        expect(zone).to include("geom")
+      end
+
+      it "returns zone matching code" do
+        zones = Zone.list(tenant, filters: { code: code })
+        expect(zones.first["code"]).to eq(code)
       end
     end
   end
