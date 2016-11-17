@@ -34,3 +34,6 @@ Gemfile.lock
 .rvmrc
 
 .DS_Store
+
+# ignore binstubs because they were causing stack overflow errors
+bin
