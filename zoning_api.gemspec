@@ -18,10 +18,10 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency("json_api_client", "~> 1.1", ">= 1.1.1")
-  spec.add_runtime_dependency("faraday", "~> 0.8", ">= 0.8.11")
+  spec.add_runtime_dependency("faraday", "~> 1.9.3", ">= 0.8.11")
 
   development_dependencies = {
-    "bundler"       => "~> 1.5",
+    "bundler"       => "~> 2.4.6",
     "rake"          => "~> 10.1.1",
     "rspec"         => '~> 3.1.0',
     "guard"         => "~> 2.6",
